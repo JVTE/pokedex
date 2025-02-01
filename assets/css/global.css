@@ -4,13 +4,12 @@
     }
 
     body {
-        background-color: #fff;
+        background-color: #f6f8fc;
     }
 
     .content {
         width: 90vw;
         max-width: 992px;
-        /* min-height: 80vh;  */
         padding: 1rem;
         background-color: #fff;
         border-radius: 1rem;
