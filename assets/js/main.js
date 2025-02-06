@@ -1,10 +1,10 @@
-const pokemonList = document.getElementById('pokemonList');
-const loadMorebutton = document.getElementById('loadMoreButton');
+const pokemonList = document.getElementById('pokemonList'); // lista de elementos HTML onde os pokemons serão exibidos
+const loadMorebutton = document.getElementById('loadMoreButton'); // botão para carregar mais pokemons
 
-const maxRecords = 151
-let offset = 0;
-const limit = 10;
-
+const maxRecords = 151 // carrega a 1º geração de pokemons
+let offset = 0; // posição incial para a proxima requisição
+const limit = 10; // quantidade de pokemons por requisição
+// Função para carregar itens de pokmeon e adicioná-los à lista HTML
 function loadPokemonItens(offset, limit) { 
     pokeApi.getPokemons(offset, limit).then( (pokemons = []) => {
         const newHtml = pokemons.map((pokemon) => `
@@ -22,22 +22,22 @@ function loadPokemonItens(offset, limit) {
                 </div>         
             </li>
         `).join('')
-        pokemonList.innerHTML += newHtml 
+        pokemonList.innerHTML += newHtml // adiciona o novo HTML à lista exisitente
     })
 }
-
+// carrega os primeiros pokemons assim que a página é aberta
 loadPokemonItens(offset, limit)
-
+// evento para carregar ais pokemons quando o botão é clicado
 loadMorebutton.addEventListener('click', () =>{
     offset += limit
     const qtdRecordNextPage = offset + limit
 
     if (qtdRecordNextPage >= maxRecords) {
-        const newLimit = maxRecords - offset
+        const newLimit = maxRecords - offset // calcula o limite restante para não ultrapassar o máximo
         loadPokemonItens(offset, newLimit)
         
-        loadMorebutton.parentElement.removeChild(loadMorebutton)
+        loadMorebutton.parentElement.removeChild(loadMorebutton) // remove o botão após carregar todos ospokemons
     } else {
-        loadPokemonItens(offset, limit)
+        loadPokemonItens(offset, limit) // carrega mais pokemons
     }
 })
